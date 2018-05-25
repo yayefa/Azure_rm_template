@@ -14,12 +14,6 @@
           "description": "Password for the Virtual Machine."
         }
       },
-      "dnsLabelPrefix": {
-        "type": "string",
-        "metadata": {
-          "description": "Unique DNS Name for the Public IP used to access the Virtual Machine."
-        }
-      },
       "windowsOSVersion": {
         "type": "string",
         "defaultValue": "2012-R2-Datacenter",
@@ -46,13 +40,6 @@
           "description": "The name for the VM's VNET."
         }
       },
-      "publicIPAddressName": {
-        "type": "string",
-        "defaultValue": "myPublicIP",
-        "metadata": {
-          "description": "The name for the VM's public IP."
-        }
-      },
       "subnetName": {
         "type": "string",
         "defaultValue": "Subnet",
@@ -76,7 +63,7 @@
       "addressPrefix": "10.0.0.0/16",
       "subnetName": "[parameters('subnetName')]",
       "subnetPrefix": "10.0.0.0/24",
-      "publicIPAddressName": "[parameters('publicIPAddressName')]",
+      "publicIPAddressName": "[concat(variables('vmName'), '-IP')]",
       "publicIPAddressType": "Dynamic",
       "vmSize": "Standard_A2",
       "virtualNetworkName": "[parameters('virtualNetworkName')]",
@@ -93,7 +80,7 @@
         "properties": {
           "publicIPAllocationMethod": "[variables('publicIPAddressType')]",
           "dnsSettings": {
-            "domainNameLabel": "[parameters('dnsLabelPrefix')]"
+            "domainNameLabel": "[concat(variables('vmName'), '-host')]"
           }
         }
       },
